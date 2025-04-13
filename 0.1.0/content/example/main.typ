@@ -1,10 +1,9 @@
 // #import "@preview/touying:0.6.1": *
 #import "../../theme.typ":*
-#import themes.stargazer: *
 
 #import "@preview/numbly:0.1.0": numbly
 
-#show: stargazer-theme.with(
+#show: touying-pres.with(
   aspect-ratio: "16-9",
   config-info(
     title: [Stargazer in Touying: Customize Your Slide Title Here],
@@ -12,7 +11,10 @@
     author: [Authors],
     date: datetime.today(),
     institution: [Institution],
-    logo: emoji.school,
+    primary: rgb("#543795"),
+    secondary: rgb("#a38acb"),
+    logo: image("../../asset/ustc_text.svg"),
+    logo-round: image("../../asset/ustc_logo.svg",width: 15%),
   ),
 )
 
@@ -40,7 +42,7 @@ A slide without a title but with *important* information.
 
 == Subsection B.1
 
-#lorem(80)
+#lorem(180)
 
 #focus-slide[
   Wake up!

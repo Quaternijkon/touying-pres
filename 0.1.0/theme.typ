@@ -1,5 +1,7 @@
 #import "lib.typ": *
 #import "components.typ" as flowcomponents: *
+#import "@preview/touying:0.6.1": *
+
 
 #let _tblock(self: none, title: none, it) = {
   grid(
@@ -100,7 +102,7 @@
 /// Example:
 ///
 /// ```typst
-/// #show: stargazer-theme.with(
+/// #show: touying-pres.with(
 ///   config-info(
 ///     title: [Title],
 ///     logo: emoji.city,
@@ -131,7 +133,11 @@
     }
   }
   let body = {
-    show: std.align.with(center + horizon)
+    show: std.align.with(center + top)
+    // if info.logo-round != none {
+    //   place(center+top, self.info.logo-round)
+    // }
+    self.info.logo-round
     block(
       fill: self.colors.primary,
       inset: 1.5em,
@@ -287,7 +293,7 @@
 /// Example:
 ///
 /// ```typst
-/// #show: stargazer-theme.with(aspect-ratio: "16-9", config-colors(primary: blue))`
+/// #show: touying-pres.with(aspect-ratio: "16-9", config-colors(primary: blue))`
 /// ```
 ///
 /// Consider using:
@@ -335,21 +341,22 @@
 /// - footer-c (content, function): is the second right part of the footer. The default is `self => if self.info.short-title == auto { self.info.title } else { self.info.short-title }`.
 ///
 /// - footer-d (content, function): is the right part of the footer. The default is `context utils.slide-counter.display() + " / " + utils.last-slide-number`.
-#let stargazer-theme(
+#let touying-pres(
   aspect-ratio: "16-9",
   align: horizon,
   alpha: 20%,
   title: self => utils.display-current-heading(depth: self.slide-level),
   header-right: self => self.info.logo,
   progress-bar: true,
-  footer-columns: (25%, 25%, 1fr, 5em),
-  footer-a: self => self.info.author,
-  footer-b: self => utils.display-info-date(self),
-  footer-c: self => if self.info.short-title == auto {
+  footer-columns: (1fr, 1fr, 5em, 5em),
+  footer-a: self => if self.info.short-title == auto {
     self.info.title
   } else {
     self.info.short-title
   },
+  footer-b: self => utils.call-or-display(self, self.store.navigation),
+  // footer-b: self => utils.display-info-date(self),
+  footer-c: self => self.info.author,
   footer-d: context utils.slide-counter.display() + " / " + utils.last-slide-number,
   ..args,
   body,
@@ -358,7 +365,7 @@
     set std.align(top)
     grid(
       rows: (auto, auto),
-      utils.call-or-display(self, self.store.navigation),
+      // utils.call-or-display(self, self.store.navigation),
       utils.call-or-display(self, self.store.header),
     )
   }
@@ -384,7 +391,7 @@
       footer: footer,
       header-ascent: 0em,
       footer-descent: 0em,
-      margin: (top: 3.5em, bottom: 2.5em, x: 2.5em),
+      margin: (top: 2em, bottom: 2em, x: 2em),
     ),
     config-common(
       slide-fn: slide,
@@ -430,20 +437,21 @@
       footer-b: footer-b,
       footer-c: footer-c,
       footer-d: footer-d,
-      navigation: self => components.simple-navigation(self: self, primary: white, secondary: gray, background: self.colors.neutral-darkest, logo: utils.call-or-display(self, self.store.header-right)),
+      navigation: self => flowcomponents.simple-navigation(self: self, primary: white, secondary: gray, background: self.colors.neutral-darkest, logo: none),
       header: self => if self.store.title != none {
         block(
           width: 100%,
           height: 1.8em,
-          fill: gradient.linear(self.colors.primary, self.colors.neutral-darkest),
+          fill: gradient.linear(self.colors.primary, self.colors.neutral-lightest),
           place(left + horizon, text(fill: self.colors.neutral-lightest, weight: "bold", size: 1.3em, utils.call-or-display(self, self.store.title)), dx: 1.5em),
         )
+        place(right + horizon, self.info.logo, dx: -1em)
       },
       footer: self => {
         let cell(fill: none, it) = rect(
           width: 100%,
           height: 100%,
-          inset: 1mm,
+          inset: 0mm,
           outset: 0mm,
           fill: fill,
           stroke: none,
