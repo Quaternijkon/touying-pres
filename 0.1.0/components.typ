@@ -26,7 +26,13 @@
           primary
         } else {
           secondary
-        })
+        },weight: if section.location().page() <= current-page and (
+          next-section == none or current-page < next-section.location().page()
+        ) {
+          "bold"
+        } else {
+          "regular"
+        },)
         box(inset: 0.5em)[#link(
             section.location(),
             if short-heading {
@@ -50,7 +56,7 @@
           fill: background,
           body(),
         ),
-        block(fill: background, inset: 4pt, height: 100%, text(fill: primary, logo)),
+        // block(fill: background, inset: 4pt, height: 100%, text(fill: primary, logo)),
       ),
     )
   }

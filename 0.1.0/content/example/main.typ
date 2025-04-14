@@ -11,10 +11,14 @@
     author: [Authors],
     date: datetime.today(),
     institution: [Institution],
-    primary: rgb("#543795"),
-    secondary: rgb("#a38acb"),
     logo: image("../../asset/ustc_text.svg"),
     logo-round: image("../../asset/ustc_logo.svg",width: 15%),
+  ),
+  config-colors(
+    primary: rgb("#004098"),
+    primary-dark: rgb("#004098").darken(20%),
+    secondary: rgb("#004098"),
+    secondary-dark: rgb("#004098").darken(20%),
   ),
 )
 

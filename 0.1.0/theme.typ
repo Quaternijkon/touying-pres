@@ -348,15 +348,14 @@
   title: self => utils.display-current-heading(depth: self.slide-level),
   header-right: self => self.info.logo,
   progress-bar: true,
-  footer-columns: (1fr, 1fr, 5em, 5em),
+  footer-columns: (1fr, 1fr, 2em, 5em),
   footer-a: self => if self.info.short-title == auto {
     self.info.title
   } else {
     self.info.short-title
   },
   footer-b: self => utils.call-or-display(self, self.store.navigation),
-  // footer-b: self => utils.display-info-date(self),
-  footer-c: self => self.info.author,
+  footer-c: link("https://github.com/Quaternijkon/touying-pres",image("asset/github-mark-white.svg")),
   footer-d: context utils.slide-counter.display() + " / " + utils.last-slide-number,
   ..args,
   body,
@@ -437,7 +436,7 @@
       footer-b: footer-b,
       footer-c: footer-c,
       footer-d: footer-d,
-      navigation: self => flowcomponents.simple-navigation(self: self, primary: white, secondary: gray, background: self.colors.neutral-darkest, logo: none),
+      navigation: self => flowcomponents.simple-navigation(self: self, primary: white, secondary: gray, background: self.colors.primary, logo: none),
       header: self => if self.store.title != none {
         block(
           width: 100%,
@@ -460,8 +459,8 @@
         grid(
           columns: self.store.footer-columns,
           rows: (1.5em, auto),
-          cell(fill: self.colors.neutral-darkest, utils.call-or-display(self, self.store.footer-a)),
-          cell(fill: self.colors.neutral-darkest, utils.call-or-display(self, self.store.footer-b)),
+          cell(fill: self.colors.primary, utils.call-or-display(self, self.store.footer-a)),
+          cell(fill: self.colors.primary, utils.call-or-display(self, self.store.footer-b)),
           cell(fill: self.colors.primary, utils.call-or-display(self, self.store.footer-c)),
           cell(fill: self.colors.primary, utils.call-or-display(self, self.store.footer-d)),
         )
